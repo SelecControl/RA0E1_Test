@@ -1,0 +1,14 @@
+# e2 studio build output folders
+Debug/
+Release/
+
+# Compiler/linker artifacts
+*.o
+*.d
+*.su
+*.elf
+*.map
+*.srec
+*.hex
+*.bin
+*.lst
