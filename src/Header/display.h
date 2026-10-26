@@ -11,7 +11,9 @@
 #include <stdint.h>
 
 #define NUM_DIGITS      (6U)
+#define DIGIT_NONE      (0xFFU)
 
+uint8_t display_active_digit(void);
 void display_init(void);
 void display_set_number(uint8_t digit, uint8_t value);
 void display_scan(void);

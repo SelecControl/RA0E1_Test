@@ -81,7 +81,7 @@
       <property id="config.bsp.common.c_runtime_init" value="config.bsp.common.c_runtime_init.enabled"/>
       <property id="config.bsp.common.early_init" value="config.bsp.common.early_init.disabled"/>
       <property id="config.bsp.common.main_osc_clock_source" value="config.bsp.common.main_osc_clock_source.crystal"/>
-      <property id="config.bsp.common.subclock_populated" value="config.bsp.common.subclock_populated.enabled"/>
+      <property id="config.bsp.common.subclock_populated" value="config.bsp.common.subclock_populated.disabled"/>
       <property id="config.bsp.common.subclock_drive" value="config.bsp.common.subclock_drive.standard"/>
       <property id="config.bsp.common.subclock_stabilization_ms" value="1000"/>
     </config>
@@ -118,7 +118,7 @@
     <node id="board.clock.clkout.display" option="board.clock.clkout.display.value"/>
     <node id="board.clock.uarta.source" option="board.clock.uarta.source.disabled"/>
     <node id="board.clock.uarta.source.display" option="board.clock.uarta.display.value"/>
-    <node id="board.clock.fsxp.source" option="board.clock.fsxp.source.subclk"/>
+    <node id="board.clock.fsxp.source" option="board.clock.fsxp.source.disabled"/>
     <node id="board.clock.tml.fitl0.source" option="board.clock.tml.fitl0.source.disabled"/>
     <node id="board.clock.tml.fitl0.display" option="board.clock.tml.fitl0.display.value"/>
     <node id="board.clock.tml.fitl1.source" option="board.clock.tml.fitl1.source.disabled"/>
@@ -172,6 +172,10 @@
       <description>Timer Array Unit (Independent Channels)</description>
       <originalPack>Renesas.RA.6.2.0.pack</originalPack>
     </component>
+    <component apiversion="" class="HAL Drivers" condition="" group="all" subgroup="r_icu" variant="" vendor="Renesas" version="6.2.0">
+      <description>External Interrupt</description>
+      <originalPack>Renesas.RA.6.2.0.pack</originalPack>
+    </component>
   </raComponentSelection>
   <raElcConfiguration/>
   <raIcuConfiguration/>
@@ -204,9 +208,20 @@
       <property id="module.driver.timer.ipl" value="board.icu.common.irq.priority1"/>
       <property id="module.driver.timer.higher_8bit_ipl" value="_disabled"/>
     </module>
+    <module id="module.driver.external_irq_on_icu.1249150106">
+      <property id="module.driver.external_irq.name" value="g_start_irq"/>
+      <property id="module.driver.external_irq.channel" value="5"/>
+      <property id="module.driver.external_irq.trigger" value="module.driver.external_irq.trigger.trig_falling"/>
+      <property id="module.driver.external_irq.filter_enable" value="module.driver.external_irq.filter_enable.false"/>
+      <property id="module.driver.external_irq.filter_source" value="module.driver.external_irq.filter_source.pclk"/>
+      <property id="module.driver.external_irq.clock_source_div" value="module.driver.external_irq.clock_source_div.clock_source_div_by_1"/>
+      <property id="module.driver.external_irq.p_callback" value="start_irq_callback"/>
+      <property id="module.driver.external_irq.ipl" value="board.icu.common.irq.priority2"/>
+    </module>
     <context id="_hal.0">
       <stack module="module.driver.ioport_on_ioport.0"/>
       <stack module="module.driver.timer_on_tau.553679754"/>
+      <stack module="module.driver.external_irq_on_icu.1249150106"/>
     </context>
     <config id="config.driver.tau">
       <property id="config.driver.tau.param_checking_enable" value="config.driver.tau.param_checking_enable.bsp"/>
@@ -219,6 +234,9 @@
     <config id="config.driver.ioport">
       <property id="config.driver.ioport.checking" value="config.driver.ioport.checking.system"/>
       <property id="config.driver.ioport.ccd_support_enable" value="config.driver.ioport.ccd_support_enable.disabled"/>
+    </config>
+    <config id="config.driver.icu">
+      <property id="config.driver.icu.param_checking_enable" value="config.driver.icu.param_checking_enable.bsp"/>
     </config>
   </raModuleConfiguration>
   <raPinConfiguration>

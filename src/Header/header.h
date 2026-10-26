@@ -11,5 +11,7 @@
 #include "hwdef.h"
 #include "display.h"
 #include "relay.h"
+#include "keys.h"
+#include "din.h"
 
 #endif /* HEADER_H_ */

@@ -52,7 +52,7 @@ FSP Configuration
     C Runtime Initialization : Enabled
     Early BSP Initialization : Disabled
     Main Oscillator Clock Source: Crystal or Resonator
-    Subclock Populated: Populated
+    Subclock Populated: Not Populated
     Subclock Drive (Drive capacitance availability varies by MCU): Standard/Normal mode
     Subclock Stabilization Time (ms): 1000
     
@@ -74,7 +74,7 @@ FSP Configuration
     CLKOUT Disabled
     CLKOUT Div /1
     UARTA0 Src: Disabled
-    FSXP Src: SUBCLK
+    FSXP Disabled
     TML FITL0 Src: ELC event/No BSP Source Clock
     TML FITL1 Src: ELC event/No BSP Source Clock
     TML FITL2 Disabled/No BSP Source Clock
@@ -137,6 +137,9 @@ FSP Configuration
     Extra Input Mode Support: Disabled
     8-Bit Mode Support: Disabled
     
+  Module "External IRQ (r_icu)"
+    Parameter Checking: Default (BSP)
+    
   HAL
     Instance "g_ioport I/O Port (r_ioport)"
       Name: g_ioport
@@ -164,4 +167,14 @@ FSP Configuration
       Interrupts: Callback: tau_1ms_callback
       Interrupts: Interrupt Priority: Priority 1
       Interrupts: Higher 8-bit Interrupt Priority: Disabled
+      
+    Instance "g_start_irq External IRQ (r_icu)"
+      Name: g_start_irq
+      Channel: 5
+      Trigger: Falling
+      Digital Filtering: Not Supported
+      Filter Source: Not Supported
+      Digital Filtering Sample Clock (Only valid when Digital Filtering is Enabled): Not Supported
+      Callback: start_irq_callback
+      Pin Interrupt Priority: Priority 2
       

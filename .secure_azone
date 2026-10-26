@@ -44,7 +44,11 @@
             <slot name="P914.CM23" secure="false"/>
         </peripheral>
         <peripheral name="TAU00.CM23" group="TAU" security=""/>
+        <peripheral name="ICU_EXT_IRQ.CM23">
+            <slot name="ICU_EXT_IRQ5.CM23" secure="false"/>
+        </peripheral>
         <peripheral name="ICU.CM23">
+            <slot name="IRQ7.CM23" secure="false"/>
             <slot name="IRQ19.CM23" secure="false"/>
         </peripheral>
     </partition>

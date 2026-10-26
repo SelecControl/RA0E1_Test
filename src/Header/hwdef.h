@@ -35,6 +35,10 @@
 /* ---------------- Key return line ---------------- */
 #define KBD_RET (BSP_IO_PORT_02_PIN_00)     /* pin 15, input only, LOW = key on active CC pressed */
 
+/* ---------------- Digital inputs (terminals, LOW = shorted = active) ---------------- */
+#define DI_START    (BSP_IO_PORT_02_PIN_01)     /* pin 14, IRQ5 external interrupt */
+#define DI_RESET    (BSP_IO_PORT_02_PIN_14)     /* pin 3,  input only, polled      */
+
 /* ---------------- Pin helper macros ---------------- */
 #define PIN_HIGH(pin)   (R_IOPORT_PinWrite(&g_ioport_ctrl, (pin), BSP_IO_LEVEL_HIGH))
 #define PIN_LOW(pin)    (R_IOPORT_PinWrite(&g_ioport_ctrl, (pin), BSP_IO_LEVEL_LOW))

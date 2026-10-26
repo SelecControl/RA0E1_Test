@@ -46,7 +46,7 @@
     <node id="board.clock.clkout.display" option="board.clock.clkout.display.value"/>
     <node id="board.clock.uarta.source" option="board.clock.uarta.source.disabled"/>
     <node id="board.clock.uarta.source.display" option="board.clock.uarta.display.value"/>
-    <node id="board.clock.fsxp.source" option="board.clock.fsxp.source.subclk"/>
+    <node id="board.clock.fsxp.source" option="board.clock.fsxp.source.disabled"/>
     <node id="board.clock.tml.fitl0.source" option="board.clock.tml.fitl0.source.disabled"/>
     <node id="board.clock.tml.fitl0.display" option="board.clock.tml.fitl0.display.value"/>
     <node id="board.clock.tml.fitl1.source" option="board.clock.tml.fitl1.source.disabled"/>
@@ -59,7 +59,7 @@
     <pincfg active="true" name="" symbol="">
       <configSetting altId="cgc.exclk.p213" configurationId="cgc.exclk" peripheral="CGC"/>
       <configSetting altId="cgc.x1.p212" configurationId="cgc.x1" peripheral="CGC"/>
-      <configSetting altId="irq.irq5.p201" configurationId="irq.irq5" peripheral="IRQ"/>
+      <configSetting altId="irq.irq5.p201" configurationId="irq.irq5" isUsedByDriver="true" peripheral="IRQ"/>
       <configSetting altId="jtag_fslash_swd.swclk.p300" configurationId="jtag_fslash_swd.swclk" peripheral="JTAG/SWD"/>
       <configSetting altId="jtag_fslash_swd.swdio.p108" configurationId="jtag_fslash_swd.swdio" peripheral="JTAG/SWD"/>
       <configSetting altId="p008.output.low" configurationId="p008"/>

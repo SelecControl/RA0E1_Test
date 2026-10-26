@@ -14,6 +14,7 @@ static volatile uint8_t display_buf[NUM_DIGITS] = {0};
 
 /* Which digit the next display_scan() call will light. */
 static uint8_t current_digit = 0;
+static uint8_t active_digit = DIGIT_NONE;     /* digit lit right now (none before first scan) */
 
 /* Digit pins in display order: index 0 = CC1 ... index 5 = CC6 */
 static const bsp_io_port_pin_t cc_pins[NUM_DIGITS] = { CC1, CC2, CC3, CC4, CC5, CC6 };
@@ -72,6 +73,7 @@ void display_init(void)
     all_cc_off();
     set_segments(0);
     current_digit = 0;
+    active_digit = DIGIT_NONE;
 }
 
 void display_set_number(uint8_t digit, uint8_t value)
@@ -88,10 +90,16 @@ void display_scan(void)
     all_cc_off();                                       /* 1. switch the old digit off   */
     set_segments(seg_lut[display_buf[current_digit]]);  /* 2. load the new digit pattern */
     PIN_HIGH(cc_pins[current_digit]);                   /* 3. switch the new digit on    */
+    active_digit = current_digit;
 
     current_digit++;
     if (current_digit >= NUM_DIGITS)
     {
         current_digit = 0;
     }
+}
+
+uint8_t display_active_digit(void)
+{
+    return active_digit;
 }
