@@ -8,7 +8,7 @@
 #ifndef KEYS_H_
 #define KEYS_H_
 
-#include <stdint.h>
+#include "typedef.h"
 
 #define NUM_KEYS        (3U)        /* keys sit on CC1, CC2, CC3 */
 
@@ -31,8 +31,8 @@ typedef enum
 } key_event_t;
 
 void        key_init(void);
-void        key_sample(uint8_t cc_index);   /* called from the 1 ms interrupt */
-uint8_t     key_get_state(void);            /* debounced: bit0 = key on CC1, bit1 = CC2, bit2 = CC3 */
+void        key_sample(U8 cc_index);   /* called from the 1 ms interrupt */
+U8     key_get_state(void);            /* debounced: bit0 = key on CC1, bit1 = CC2, bit2 = CC3 */
 key_event_t key_get_event(void);            /* returns next event once, then KEY_EVT_NONE */
 
 

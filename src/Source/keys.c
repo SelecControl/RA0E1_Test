@@ -21,16 +21,16 @@
 
 #define KEY_LONG_PRESS_MS       (3000U)     /* XT546: "press for 3 sec" */
 
-static uint8_t          cycle_bits  = 0;    /* keys seen pressed in the current 6 ms cycle   */
-static uint8_t          last_bits   = 0;    /* pattern from the previous cycle               */
-static uint8_t          same_count  = 0;    /* how many cycles in a row last_bits repeated   */
-static volatile uint8_t key_state   = 0;    /* debounced result, read by the main loop       */
+static U8          cycle_bits  = 0;    /* keys seen pressed in the current 6 ms cycle   */
+static U8          last_bits   = 0;    /* pattern from the previous cycle               */
+static U8          same_count  = 0;    /* how many cycles in a row last_bits repeated   */
+static volatile U8 key_state   = 0;    /* debounced result, read by the main loop       */
 
 /* ---- event detection ---- */
-static uint8_t              held_bits    = 0;   /* key pattern currently being timed          */
-static uint16_t             held_ms      = 0;   /* how long held_bits has been held           */
-static uint8_t              used_bits    = 0;   /* every key touched since all keys were free */
-static uint8_t              long_done    = 0;   /* 1 = long event already sent for this press */
+static U8              held_bits    = 0;   /* key pattern currently being timed          */
+static U16             held_ms      = 0;   /* how long held_bits has been held           */
+static U8              used_bits    = 0;   /* every key touched since all keys were free */
+static U8              long_done    = 0;   /* 1 = long event already sent for this press */
 static volatile key_event_t pending_evt  = KEY_EVT_NONE;   /* one-slot mailbox to main loop */
 
 static void post_event(key_event_t evt)
@@ -41,12 +41,12 @@ static void post_event(key_event_t evt)
     }
 }
 
-static uint8_t is_single_key(uint8_t bits)
+static U8 is_single_key(U8 bits)
 {
-    return (uint8_t) ((bits != 0U) && ((bits & (bits - 1U)) == 0U));
+    return (U8) ((bits != 0U) && ((bits & (bits - 1U)) == 0U));
 }
 
-static key_event_t short_event(uint8_t bits)
+static key_event_t short_event(U8 bits)
 {
     switch (bits)
     {
@@ -57,7 +57,7 @@ static key_event_t short_event(uint8_t bits)
     }
 }
 
-static key_event_t long_event(uint8_t bits)
+static key_event_t long_event(U8 bits)
 {
     switch (bits)
     {
@@ -70,7 +70,7 @@ static key_event_t long_event(uint8_t bits)
 }
 
 /* Called once per scan cycle (every KEY_SCAN_PERIOD_MS) with the debounced key pattern */
-static void key_update_events(uint8_t state)
+static void key_update_events(U8 state)
 {
     if (0U != state)                                    /* at least one key is held */
     {
@@ -84,7 +84,7 @@ static void key_update_events(uint8_t state)
 
         if (held_ms < KEY_LONG_PRESS_MS)
         {
-            held_ms = (uint16_t) (held_ms + KEY_SCAN_PERIOD_MS);
+            held_ms = (U16) (held_ms + KEY_SCAN_PERIOD_MS);
         }
 
         if ((0U == long_done) && (held_ms >= KEY_LONG_PRESS_MS))
@@ -121,7 +121,7 @@ void key_init(void)
 }
 
 /* cc_index = the digit/CC line that has been ON for the last 1 ms */
-void key_sample(uint8_t cc_index)
+void key_sample(U8 cc_index)
 {
     /* 1. Only CC1..CC3 have keys. Read KBD while that CC is still ON. */
     if (cc_index < NUM_KEYS)
@@ -131,7 +131,7 @@ void key_sample(uint8_t cc_index)
 
         if (BSP_IO_LEVEL_LOW == level)                   /* LOW = key on this CC pressed */
         {
-            cycle_bits |= (uint8_t) (1U << cc_index);
+            cycle_bits |= (U8) (1U << cc_index);
         }
     }
 
@@ -162,7 +162,7 @@ void key_sample(uint8_t cc_index)
     }
 }
 
-uint8_t key_get_state(void)
+U8 key_get_state(void)
 {
     return key_state;
 }

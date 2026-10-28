@@ -10,17 +10,17 @@
 #include "hwdef.h"
 
 /* What each digit should show (0..9). Written by main loop, read by the 1 ms interrupt. */
-static volatile uint8_t display_buf[NUM_DIGITS] = {0};
+static volatile U8 display_buf[NUM_DIGITS] = {0};
 
 /* Which digit the next display_scan() call will light. */
-static uint8_t current_digit = 0;
-static uint8_t active_digit = DIGIT_NONE;     /* digit lit right now (none before first scan) */
+static U8 current_digit = 0;
+static U8 active_digit = DIGIT_NONE;     /* digit lit right now (none before first scan) */
 
 /* Digit pins in display order: index 0 = CC1 ... index 5 = CC6 */
 static const bsp_io_port_pin_t cc_pins[NUM_DIGITS] = { CC1, CC2, CC3, CC4, CC5, CC6 };
 
 /* Segment pattern for 0..9.  bit0 = A, bit1 = B ... bit6 = G, bit7 = DP. It's a segment lookup table */
-static const uint8_t seg_lut[10] =
+static const U8 seg_lut[10] =
 {
     0x3F,   /* 0 : A B C D E F   */
     0x06,   /* 1 : B C           */
@@ -37,14 +37,14 @@ static const uint8_t seg_lut[10] =
 /* Switch all digit pins off. */
 static void all_cc_off(void)
 {
-    for (uint8_t i = 0; i < NUM_DIGITS; i++)
+    for (U8 i = 0; i < NUM_DIGITS; i++)
     {
         PIN_LOW(cc_pins[i]);
     }
 }
 
 
-static void write_bit(bsp_io_port_pin_t pin, uint8_t on)
+static void write_bit(bsp_io_port_pin_t pin, U8 on)
 {
     if (on)
     {
@@ -56,7 +56,7 @@ static void write_bit(bsp_io_port_pin_t pin, uint8_t on)
     }
 }
 
-static void set_segments(uint8_t pattern)
+static void set_segments(U8 pattern)
 {
     write_bit(SEGA,  pattern & (1U << 0));
     write_bit(SEGB,  pattern & (1U << 1));
@@ -76,7 +76,7 @@ void display_init(void)
     active_digit = DIGIT_NONE;
 }
 
-void display_set_number(uint8_t digit, uint8_t value)
+void display_set_number(U8 digit, U8 value)
 {
     if ((digit < NUM_DIGITS) && (value < 10U))
     {
@@ -99,7 +99,7 @@ void display_scan(void)
     }
 }
 
-uint8_t display_active_digit(void)
+U8 display_active_digit(void)
 {
     return active_digit;
 }

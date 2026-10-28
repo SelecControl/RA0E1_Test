@@ -27,6 +27,7 @@
 #define CC4     (BSP_IO_PORT_01_PIN_03)     /* pin 21 */
 #define CC5     (BSP_IO_PORT_01_PIN_09)     /* pin 18 */
 #define CC6     (BSP_IO_PORT_01_PIN_10)     /* pin 19 */
+#define CC7     (BSP_IO_PORT_01_PIN_12)     /* pin 20 - LED slot */
 
 /* ---------------- Relay output pins (N-ch open drain, LOW = relay ON) ---------------- */
 #define RLY1    (BSP_IO_PORT_09_PIN_13)     /* pin 10 -> terminals 3,4,5  (NO1, COM1, NC1) */

@@ -11,11 +11,11 @@ bsp_ipc_semaphore_handle_t g_core_start_semaphore =
 #define SET_TIME_MS     (10000U)        /* fixed for now: 10.0 s */
 
 /* Show a 0..999 value on three digits starting at first_digit */
-static void show_3digits(uint8_t first_digit, uint16_t value)
+static void show_3digits(U8 first_digit, U16 value)
 {
-    display_set_number(first_digit,      (uint8_t) ((value / 100U) % 10U));
-    display_set_number(first_digit + 1U, (uint8_t) ((value / 10U) % 10U));
-    display_set_number(first_digit + 2U, (uint8_t) (value % 10U));
+    display_set_number(first_digit,      (U8) ((value / 100U) % 10U));
+    display_set_number(first_digit + 1U, (U8) ((value / 10U) % 10U));
+    display_set_number(first_digit + 2U, (U8) (value % 10U));
 }
 
 /*******************************************************************************************************************//**
@@ -29,7 +29,7 @@ static void show_3digits(uint8_t first_digit, uint16_t value)
 //    relay_init();                  /* relays OFF first - safety */
 //    key_init();
 //
-//    for (uint8_t d = 0; d < NUM_DIGITS; d++)
+//    for (U8 d = 0; d < NUM_DIGITS; d++)
 //    {
 //        display_set_number(d, 0);              /* start with 000 000 */
 //    }
@@ -40,13 +40,13 @@ static void show_3digits(uint8_t first_digit, uint16_t value)
 //    R_ICU_ExternalIrqOpen(&g_start_irq_ctrl, &g_start_irq_cfg);    /* configure IRQ5 */
 //    R_ICU_ExternalIrqEnable(&g_start_irq_ctrl);                     /* start listening */
 //
-//    uint16_t evt_count = 0;
+//    U16 evt_count = 0;
 //
 //    while (1)
 //    {
 //        key_event_t evt = key_get_event();
 //
-////        uint8_t keys = key_get_state();
+////        U8 keys = key_get_state();
 ////
 ////        /* top row: digit n shows 1 while the key on CC(n+1) is held */
 ////        display_set_number(0, (keys & (1U << 0)) ? 1 : 0);
@@ -55,10 +55,10 @@ static void show_3digits(uint8_t first_digit, uint16_t value)
 //        if (KEY_EVT_NONE != evt)
 //        {
 //            evt_count++;
-//            display_set_number(2, (uint8_t) evt);                          /* top right: event code */
-//            display_set_number(3, (uint8_t) ((evt_count / 100U) % 10U));   /* bottom row: count     */
-//            display_set_number(4, (uint8_t) ((evt_count / 10U) % 10U));
-//            display_set_number(5, (uint8_t) (evt_count % 10U));
+//            display_set_number(2, (U8) evt);                          /* top right: event code */
+//            display_set_number(3, (U8) ((evt_count / 100U) % 10U));   /* bottom row: count     */
+//            display_set_number(4, (U8) ((evt_count / 10U) % 10U));
+//            display_set_number(5, (U8) (evt_count % 10U));
 //        }
 //
 //    }
@@ -95,15 +95,15 @@ static void show_3digits(uint8_t first_digit, uint16_t value)
 
 //void hal_entry(void) //start and reset trials
 //{
-//    uint16_t count;
-//    uint16_t last_start;
+//    U16 count;
+//    U16 last_start;
 //
 //    relay_init();
 //    display_init();
 //    key_init();
 //    din_init();
 //
-//    for (uint8_t d = 0; d < NUM_DIGITS; d++)
+//    for (U8 d = 0; d < NUM_DIGITS; d++)
 //    {
 //        display_set_number(d, 0);
 //    }
@@ -120,8 +120,8 @@ static void show_3digits(uint8_t first_digit, uint16_t value)
 //    while (1)
 //    {
 //        /* How many START pulses arrived since the last loop? */
-//        uint16_t now_start  = din_get_start_count();
-//        uint16_t new_pulses = (uint16_t) (now_start - last_start);
+//        U16 now_start  = din_get_start_count();
+//        U16 new_pulses = (U16) (now_start - last_start);
 //        last_start = now_start;
 //
 //        if (din_reset_active())
@@ -130,7 +130,7 @@ static void show_3digits(uint8_t first_digit, uint16_t value)
 //        }
 //        else
 //        {
-//            count = (uint16_t) ((count + new_pulses) % 1000U);
+//            count = (U16) ((count + new_pulses) % 1000U);
 //        }
 //
 //        display_set_number(0, din_reset_active());      /* top-left: 1 while RESET is shorted */
@@ -140,7 +140,7 @@ static void show_3digits(uint8_t first_digit, uint16_t value)
 
 void hal_entry(void)
 {
-    uint16_t last_start;
+    U16 last_start;
 
     relay_init();
     display_init();
@@ -159,7 +159,7 @@ void hal_entry(void)
     while (1)
     {
         /* ---- 1. Inputs -> timer requests ---- */
-        uint16_t now_start = din_get_start_count();
+        U16 now_start = din_get_start_count();
 
         if (din_reset_active())
         {
@@ -186,11 +186,11 @@ void hal_entry(void)
         }
 
         /* ---- 3. Display (in 0.1 s units, DP comes in step 5b) ---- */
-        uint32_t remaining_ms = tmr_get_set_ms() - tmr_get_elapsed_ms();
-        uint16_t remaining_01 = (uint16_t) ((remaining_ms + 99U) / 100U);   /* round up */
+        U32 remaining_ms = tmr_get_set_ms() - tmr_get_elapsed_ms();
+        U16 remaining_01 = (U16) ((remaining_ms + 99U) / 100U);   /* round up */
 
         show_3digits(0, remaining_01);                                      /* top: time left   */
-        show_3digits(3, (uint16_t) (tmr_get_set_ms() / 100U));              /* bottom: set time */
+        show_3digits(3, (U16) (tmr_get_set_ms() / 100U));              /* bottom: set time */
     }
 }
 

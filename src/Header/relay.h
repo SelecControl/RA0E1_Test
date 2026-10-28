@@ -8,6 +8,8 @@
 #ifndef RELAY_H_
 #define RELAY_H_
 
+#include "typedef.h"
+
 typedef enum
 {
     RELAY_1 = 0,

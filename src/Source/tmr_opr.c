@@ -9,14 +9,14 @@
 
 /* Owned by the 1 ms interrupt (only the ISR writes these) */
 static volatile tmr_state_t state      = TMR_IDLE;
-static volatile uint32_t    elapsed_ms = 0;
-static uint32_t             set_time_ms = 0;
+static volatile U32    elapsed_ms = 0;
+static U32             set_time_ms = 0;
 
 /* Requests from the main loop: main only SETS them, the ISR only CLEARS them */
-static volatile uint8_t     start_req  = 0;
-static volatile uint8_t     reset_req  = 0;
+static volatile U8     start_req  = 0;
+static volatile U8     reset_req  = 0;
 
-void tmr_init(uint32_t set_ms)
+void tmr_init(U32 set_ms)
 {
     set_time_ms = set_ms;
     state       = TMR_IDLE;
@@ -71,12 +71,12 @@ tmr_state_t tmr_get_state(void)
     return state;
 }
 
-uint32_t tmr_get_elapsed_ms(void)
+U32 tmr_get_elapsed_ms(void)
 {
     return elapsed_ms;
 }
 
-uint32_t tmr_get_set_ms(void)
+U32 tmr_get_set_ms(void)
 {
     return set_time_ms;
 }
