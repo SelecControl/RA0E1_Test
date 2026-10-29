@@ -20,5 +20,6 @@ typedef enum
 void relay_init(void);
 void relay_on(relay_id_t id);
 void relay_off(relay_id_t id);
+U8   relay_is_on(relay_id_t id);
 
 #endif /* RELAY_H_ */

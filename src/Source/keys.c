@@ -14,7 +14,7 @@
 //#define KEY_DEBOUNCE_CYCLES     (4U)
 
 #define KEY_DEBOUNCE_MS         (20U)          /* required debounce time            */
-#define KEY_SCAN_PERIOD_MS      (NUM_DIGITS)   /* one full CC cycle, 1 ms per CC    */
+#define KEY_SCAN_PERIOD_MS      (NUM_CC)   /* was NUM_DIGITS - one full scan is now 7 ms  */
 
 /* Cycles needed, rounded UP so we never debounce for less than KEY_DEBOUNCE_MS */
 #define KEY_DEBOUNCE_CYCLES     ((KEY_DEBOUNCE_MS + KEY_SCAN_PERIOD_MS - 1U) / KEY_SCAN_PERIOD_MS)

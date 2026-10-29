@@ -14,5 +14,6 @@
 #include "keys.h"
 #include "din.h"
 #include "tmr_opr.h"
+#include "tick.h"
 
 #endif /* HEADER_H_ */

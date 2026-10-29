@@ -44,5 +44,12 @@
 #define PIN_HIGH(pin)   (R_IOPORT_PinWrite(&g_ioport_ctrl, (pin), BSP_IO_LEVEL_HIGH))
 #define PIN_LOW(pin)    (R_IOPORT_PinWrite(&g_ioport_ctrl, (pin), BSP_IO_LEVEL_LOW))
 
+/* ---------------- CC7 LED map (segment bit -> LED) ---------------- */
+#define LED_H       (1U << 0)       /* SEG A - time range H */
+#define LED_OUT1    (1U << 1)       /* SEG B - relay 1 status */
+#define LED_M       (1U << 2)       /* SEG C - time range M */
+#define LED_OUT2    (1U << 3)       /* SEG D - relay 2 status */
+#define LED_S       (1U << 4)       /* SEG E - time range S */
+
 
 #endif /* HWDEF_H_ */
