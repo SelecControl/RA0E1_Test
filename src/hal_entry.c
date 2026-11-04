@@ -13,7 +13,14 @@ bsp_ipc_semaphore_handle_t g_core_start_semaphore =
 /* Show a 0..999 value on three digits starting at first_digit */
 static void show_3digits(U8 first_digit, U16 value)
 {
-    display_set_number(first_digit,      (U8) ((value / 100U) % 10U));
+    if((value / 100U) == 0U)
+    {
+        display_blank_digit(first_digit);
+    }
+    else
+    {
+        display_set_number(first_digit, (U8) ((value / 100U) % 10U));
+    }
     display_set_number(first_digit + 1U, (U8) ((value / 10U) % 10U));
     display_set_number(first_digit + 2U, (U8) (value % 10U));
 }
