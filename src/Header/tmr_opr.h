@@ -24,5 +24,7 @@ void        tmr_reset(void);            /* request: stop and clear            */
 tmr_state_t tmr_get_state(void);
 U32    tmr_get_elapsed_ms(void);
 U32    tmr_get_set_ms(void);
+void        tmr_set_ms(U32 set_ms);     /* request: new set time + reset unit */
+
 
 #endif /* HEADER_TMR_OPR_H_ */
