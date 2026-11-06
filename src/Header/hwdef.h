@@ -33,23 +33,11 @@
 #define RLY1    (BSP_IO_PORT_09_PIN_13)     /* pin 10 -> terminals 3,4,5  (NO1, COM1, NC1) */
 #define RLY2    (BSP_IO_PORT_09_PIN_14)     /* pin 9  -> terminals 8,9,10 (NC2, COM2, NO2) */
 
-/* ---------------- Key return line ---------------- */
-#define KBD_RET (BSP_IO_PORT_02_PIN_00)     /* pin 15, input only, LOW = key on active CC pressed */
-
-/* ---------------- Digital inputs (terminals, LOW = shorted = active) ---------------- */
-#define DI_START    (BSP_IO_PORT_02_PIN_01)     /* pin 14, IRQ5 external interrupt */
-#define DI_RESET    (BSP_IO_PORT_02_PIN_14)     /* pin 3,  input only, polled      */
-
 /* ---------------- Pin helper macros ---------------- */
 #define PIN_HIGH(pin)   (R_IOPORT_PinWrite(&g_ioport_ctrl, (pin), BSP_IO_LEVEL_HIGH))
 #define PIN_LOW(pin)    (R_IOPORT_PinWrite(&g_ioport_ctrl, (pin), BSP_IO_LEVEL_LOW))
 
-/* ---------------- CC7 LED map (segment bit -> LED) ---------------- */
-#define LED_H       (1U << 0)       /* SEG A - time range H */
-#define LED_OUT1    (1U << 1)       /* SEG B - relay 1 status */
-#define LED_M       (1U << 2)       /* SEG C - time range M */
-#define LED_OUT2    (1U << 3)       /* SEG D - relay 2 status */
-#define LED_S       (1U << 4)       /* SEG E - time range S */
-
+/* ------------------KBD Return Pin------------------ */
+#define KBD_RET    (BSP_IO_PORT_02_PIN_00)    /* pin 15, input only, LOW = key on active CC pressed */
 
 #endif /* HWDEF_H_ */

@@ -73,7 +73,7 @@ void display_set_number(U8 digit, U8 value)
 {
     if ((digit < NUM_DIGITS) && (value < 10U))
     {
-        U8 dp = seg_buf[digit] & SEG_DP_BIT;          /* remember this digit's DP */
+        U8 dp = seg_buf[digit] & SEG_DP_BIT;          /* remember this digit's DP as this only adds the number */
         seg_buf[digit] = (U8) (seg_lut[value] | dp);
     }
 }
