@@ -11,8 +11,8 @@ bsp_ipc_semaphore_handle_t g_core_start_semaphore =
 /*
  * BASELINE TEST (display, relays)
  *
- *   Top row    : 123
- *   Bottom row : 456
+ *   Top row    : key event
+ *   Bottom row : which key is pressed
  *   Relays     : both OFF (initialised only)
  */
 
@@ -45,9 +45,32 @@ void hal_entry(void)
 
     while (1)
     {
-        U8 active_keys = key_get_bits();
-        show_3digits(0, active_keys);          /* top row    */
-        show_3digits(3, 456U);          /* bottom row */
+        U8 key_event_display = key_get_event();
+        U8 pressed_keys_display = key_get_pressed();
+
+        if(key_event_display != 0U)
+        {
+            show_3digits(0, key_event_display);          /* top row    */
+            show_3digits(3, pressed_keys_display);          /* bottom row */
+        }
+
+        if(key_event_display != 0U)
+        {
+            if(pressed_keys_display == SET_KEY)
+            {
+                relay_on(RELAY_1);
+            }
+            else if(pressed_keys_display == PRG_KEY)
+            {
+                relay_on(RELAY_2);
+            }
+            else if(pressed_keys_display == RST_KEY)
+            {
+                relay_off(RELAY_1);
+                relay_off(RELAY_2);
+            }
+        }
+
     }
 }
 
